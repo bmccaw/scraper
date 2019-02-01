@@ -1,0 +1,15 @@
+<main>
+    <hr>
+    <section id="articles">
+        {{#each article}}
+            <div class="item">
+                <h3><a href="{{article_link}}" target="_blank">{{headline}}</a></h3>
+                <img src="{{img_link}}">
+                <p>Summary: {{teaser}}</p>
+                <button id="{{id}}" class="btn btn-save">Save</button>
+            </div>
+            <hr>
+        {{/each}}
+    </section>
+    
+</main>

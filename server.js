@@ -19,9 +19,9 @@ app.engine(
     })
   );
   app.set("view engine", "handlebars");
+  require("./routes/api-routes")(app);
 
-const MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/mongoHeadlines";
-
+const MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/nprHeadlines";
 mongoose.connect(MONGODB_URI , {useNewUrlParser: true});
 
 async function serverStart(){
