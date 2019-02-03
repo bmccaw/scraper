@@ -2,14 +2,30 @@
     <hr>
     <section id="articles">
         {{#each article}}
-            <div class="item">
-                <h3><a href="{{article_link}}" target="_blank">{{headline}}</a></h3>
-                <img src="{{img_link}}">
-                <p>Summary: {{teaser}}</p>
-                <button id="{{id}}" class="btn btn-save">Save</button>
+        <div class="item" data-id="{{id}}">
+            <h3><a href="{{article_link}}" target="_blank">{{headline}}</a></h3>
+            <img src="{{img_link}}">
+            <p>Summary: {{teaser}}</p>
+            {{#unless saved}}
+            <button id="{{id}}" class="btn save">Favorite</button>
+            {{/unless}}
+            {{#if saved}}
+            <button id="{{id}}" class="btn save">Remove from Favorites</button>
+            <button id="{{id}}" class="btn note">Notes</button>
+            {{/if}}
+
+        </div>
+        <hr>
+        <div id="modal{{id}}" class="modal">
+            <div class="modal-content">
+                <h4>{{headline}}</h4>
+                <p>A bunch of text</p>
             </div>
-            <hr>
+            <div class="modal-footer">
+                <a href="#!" class="modal-close waves-effect waves-green btn">Close</a>
+            </div>
+        </div>
         {{/each}}
     </section>
-    
+
 </main>

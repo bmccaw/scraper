@@ -3,6 +3,7 @@ const cheerio = require("cheerio");
 const db = require("../models/index.js");
 
 module.exports = function (app) {
+
     app.get("/", async (req, res) => {
         const data = await db.Article.find({});
         console.log(data);
@@ -16,7 +17,7 @@ module.exports = function (app) {
 
             const results = [];
 
-            $("article.item").each(function (i, element) {
+            $("article.item").each( (i, element) => {
 
                 const headline = $(element).find("h2").text();
                 const articleLink = $(element).find("a").attr("href");
@@ -36,7 +37,7 @@ module.exports = function (app) {
                     article_link: articleLink,
                     img_link: imgLink,
                     teaser: teaser
-                }, function (err, inserted) {
+                },  (err, inserted) => {
                     if (err) {
                         console.log(err);
                     } else {
@@ -50,14 +51,29 @@ module.exports = function (app) {
         });
 
     });
+    //Route for displaying data in JSON
     app.get("/api", async (req, res) => {
         const data = await db.Article.find();
         console.log(data);
+        res.json(data);
     });
+    //Route for clearing all articles from the db
     app.delete("/", async (req, res) => {
         await db.Article.deleteMany();
         res.redirect("/");
     });
-    
+
+    //Route to view all saved articles
+    app.get("/saved", async (req, res) => {
+        const data = await db.Article.find({saved:true});
+        res.render("index", { article: data });
+    });
+    //Change save state
+    app.put("/:id", async (req,res) => {
+        const id = req.params.id;
+        const {saved: savedState} = await db.Article.findById(id);
+        await db.Article.findOneAndUpdate({_id:id},{saved:!savedState});
+        res.end();
+    });
 
 };

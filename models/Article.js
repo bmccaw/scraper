@@ -6,7 +6,6 @@ const ArticleSchema = new Schema({
         type: String,
         required: true
       },
-      // `link` is required and of type String
       article_link: {
         type: String,
         required: true
@@ -17,6 +16,9 @@ const ArticleSchema = new Schema({
       teaser: {
           type: String,
           required:true
+      },
+      saved: {
+          type: Boolean
       },
       note: [{
         type: Schema.Types.ObjectId,
