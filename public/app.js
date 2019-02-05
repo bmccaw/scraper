@@ -25,7 +25,7 @@ document.addEventListener("DOMContentLoaded", event => {
 
         if (event.target && event.target.matches(".note")) {
             console.log(`clicked ${event.target.id}`);
-            const id = event.target.id;
+            const id = event.target.dataset.id;
             noteModalElem = document.querySelector(`#modal${id}`);
             noteModalInst = M.Modal.init(noteModalElem);
             noteModalInst.open();

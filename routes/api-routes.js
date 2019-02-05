@@ -5,8 +5,8 @@ const db = require("../models/index.js");
 module.exports = function (app) {
 
     app.get("/", async (req, res) => {
-        const data = await db.Article.find({});
-        console.log(data);
+        const data = await db.Article.find({}).populate("notes");
+        // console.log(data);
         res.render("index", { article: data });
     });
 
@@ -36,7 +36,8 @@ module.exports = function (app) {
                     headline: headline,
                     article_link: articleLink,
                     img_link: imgLink,
-                    teaser: teaser
+                    teaser: teaser,
+                    saved: false
                 },  (err, inserted) => {
                     if (err) {
                         console.log(err);
@@ -54,12 +55,13 @@ module.exports = function (app) {
     //Route for displaying data in JSON
     app.get("/api", async (req, res) => {
         const data = await db.Article.find();
-        console.log(data);
+        // console.log(data);
         res.json(data);
     });
     //Route for clearing all articles from the db
     app.delete("/", async (req, res) => {
         await db.Article.deleteMany();
+        await db.Note.deleteMany();
         res.redirect("/");
     });
 
@@ -76,4 +78,14 @@ module.exports = function (app) {
         res.end();
     });
 
+    app.post("/notes/:id", async (req,res) => {
+        const id = req.params.id;
+        const {name, note} = req.body;
+        console.log(name, note);
+        const newNote = await db.Note.create({body:note, author:name});
+        console.log(newNote);
+        await db.Article.findOneAndUpdate({_id:id},{notes:newNote._id}, {new:true});
+
+        res.redirect("/");
+    })
 };

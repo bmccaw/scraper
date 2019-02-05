@@ -11,7 +11,7 @@
             {{/unless}}
             {{#if saved}}
             <button id="{{id}}" class="btn save">Remove from Favorites</button>
-            <button id="{{id}}" class="btn note">Notes</button>
+            <button data-id="{{id}}" class="btn note">Notes</button>
             {{/if}}
 
         </div>
@@ -19,7 +19,27 @@
         <div id="modal{{id}}" class="modal">
             <div class="modal-content">
                 <h4>{{headline}}</h4>
-                <p>A bunch of text</p>
+                <div class="notes"><h5>Notes</h5>
+                    {{#each notes}}
+                    <p>Name: {{author}}</p>
+                    <p>Note: {{body}}</p>
+                    {{/each}}
+                </div>
+                <div class="row">
+                    <form class="col s12" action="/notes/{{id}}" method="POST">
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <input id="name" type="text" name="name">
+                                <label for="name">Name</label>
+                            </div>
+                            <div class="input-field col s12">
+                                <textarea id="note" class="materialize-textarea" name="note"></textarea>
+                                <label for="note">Add a note...</label>
+                                <button class="waves-effect waves-light btn add-note" type="submit">Submit</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
             </div>
             <div class="modal-footer">
                 <a href="#!" class="modal-close waves-effect waves-green btn">Close</a>

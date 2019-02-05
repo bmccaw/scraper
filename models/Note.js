@@ -2,7 +2,13 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const NoteSchema = new Schema ({
-    body: String
+    body: {
+        type: String
+    }
+    ,
+    author: {
+        type: String
+    }
 });
 
 const Note = mongoose.model("Note", NoteSchema);
