@@ -16,12 +16,20 @@ body {
 
 nav {
     grid-area: nav;
+    background-color: #f15c22;
 }
 
 header {
     display:grid;
     grid-template-columns: 1fr 1fr 1fr;
     grid-template-areas: "logo . nav"
+}
+
+@media (max-width: 700px) {
+    header {
+        grid-template-columns: 1fr 1fr;
+        grid-template-areas: "logo nav"
+    }
 }
 
 main {
@@ -39,4 +47,8 @@ main {
 .article-img {
     width: 200px;
     height:auto;
+}
+
+.btn {
+    background-color: #4e84c4;
 }
