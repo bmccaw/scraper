@@ -84,7 +84,7 @@ module.exports = function (app) {
         console.log(name, note);
         const newNote = await db.Note.create({body:note, author:name});
         console.log(newNote);
-        await db.Article.findOneAndUpdate({_id:id},{notes:newNote._id}, {new:true});
+        await db.Article.findOneAndUpdate({_id:id}, {$push:{notes:newNote._id}}, {new:true});
 
         res.redirect("/");
     })

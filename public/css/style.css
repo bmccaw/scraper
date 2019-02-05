@@ -1,0 +1,42 @@
+body {
+    display: grid;
+    grid-template-rows: 64px 1fr;
+    grid-template-areas: "header"
+                        "main"
+}
+
+.logo {
+    grid-area: logo;
+}
+
+#npr-logo {
+    height:64px;
+    width:auto;
+}
+
+nav {
+    grid-area: nav;
+}
+
+header {
+    display:grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-areas: "logo . nav"
+}
+
+main {
+    grid-area:main;
+}
+#articles {
+    display:grid;
+    grid-template-columns: repeat(auto-fit,minmax(200px,1fr));
+    grid-gap: 1rem;
+    padding: 10px;
+    margin: auto;
+    max-height: 100%;
+    overflow-y: auto;
+}
+.article-img {
+    width: 200px;
+    height:auto;
+}
